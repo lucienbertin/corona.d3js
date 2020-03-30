@@ -5,5 +5,11 @@ import { DATA } from './app.token';
 export class AppService {
 	constructor(
 		@Inject(DATA) private _data,
-	) {}
+	) {
+		debugger;
+	}
+
+	franceTimeline() {
+		return;
+	}
 }
