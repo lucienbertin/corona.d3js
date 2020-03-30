@@ -1,0 +1,30 @@
+{
+  "name": "@lucienbertin/corona",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucienbertin/corona.d3js.git"
+  },
+  "keywords": [
+    "covid19",
+    "d3js"
+  ],
+  "author": "lucien Bertin <me@lucienbertin.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucienbertin/corona.d3js/issues"
+  },
+  "homepage": "https://github.com/lucienbertin/corona.d3js#readme",
+  "dependencies": {
+    "d3": "^5.15.0"
+  },
+  "devDependencies": {
+    "@types/d3": "^5.7.2",
+    "typescript": "^3.8.3"
+  }
+}
