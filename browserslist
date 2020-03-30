@@ -1,0 +1,10 @@
+# This file is used by the build system to adjust CSS and JS output to support the specified browsers below.
+# For additional information regarding the format and rule options, please see:
+# https://github.com/browserslist/browserslist#queries
+
+# You can see what browsers were selected by your queries by running:
+#   npx browserslist
+
+# only es6+
+# https://stackoverflow.com/questions/56197896/how-to-turn-off-differential-loading-in-angular-v8
+last 2 Chrome versions

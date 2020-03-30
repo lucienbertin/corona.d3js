@@ -1,10 +1,35 @@
 {
   "name": "@lucienbertin/corona",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "build": "tsc"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "~9.1.0",
+    "@angular/compiler": "~9.1.0",
+    "@angular/core": "~9.1.0",
+    "@angular/platform-browser": "~9.1.0",
+    "@angular/platform-browser-dynamic": "~9.1.0",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.901.0",
+    "@angular/cli": "~9.1.0",
+    "@angular/compiler-cli": "~9.1.0",
+    "@angular/language-service": "~9.1.0",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
+    "ts-node": "~8.3.0",
+    "tslint": "~6.1.0",
+    "typescript": "~3.8.3"
   },
   "repository": {
     "type": "git",
@@ -19,12 +44,5 @@
   "bugs": {
     "url": "https://github.com/lucienbertin/corona.d3js/issues"
   },
-  "homepage": "https://github.com/lucienbertin/corona.d3js#readme",
-  "dependencies": {
-    "d3": "^5.15.0"
-  },
-  "devDependencies": {
-    "@types/d3": "^5.7.2",
-    "typescript": "^3.8.3"
-  }
+  "homepage": "https://github.com/lucienbertin/corona.d3js#readme"
 }
