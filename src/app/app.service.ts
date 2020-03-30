@@ -16,11 +16,21 @@ export class AppService {
 		entries.forEach((e, i) => e.daysSice100th = i - i100th);
 		return {
 			name: country,
-			days: entries
+			days: entries,
 		}
 	}
 
+	dates() {
+		const raw = this._data[0];
+		return  Object.keys(raw).slice(4).map(d => new Date(d));
+	}
 	france() {
 		return this.extract('France');
+	}
+	italy() {
+		return this.extract('Italy');
+	}
+	usa() {
+		return this.extract('US');
 	}
 }

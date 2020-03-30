@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AppInitializer, initData, getData } from './app.initializer';
 import { DATA } from './app.token';
 import { AppService } from './app.service';
+import { ChartFactory } from './chart.factory';
 
 @NgModule({
 	declarations: [
@@ -20,6 +21,7 @@ import { AppService } from './app.service';
 		{ provide: APP_INITIALIZER, useFactory: initData, deps: [AppInitializer], multi: true },
 		{ provide: DATA, useFactory: getData, deps: [AppInitializer] },
 		AppService,
+		ChartFactory,
 	],
 	bootstrap: [AppComponent]
 })

@@ -7,6 +7,24 @@ $noCssVar: false;
 // ====
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic");
 
+
+.country-line {
+	fill: none;
+	stroke-width: 1;
+}
+.France {
+	color: #66CCAA;
+	stroke: #66CCAA;
+}
+.Italy {
+	color: #7072D2;
+	stroke: #7072D2;
+}
+.US {
+	color: #0f98d0;
+	stroke: #0f98d0;
+}
+
 :root {
 	@include generateCSSVarsFromTheme($theme);
 }
