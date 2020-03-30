@@ -27,7 +27,7 @@ export class AppInitializer {
 					header: true,
 				}
 				const papa = new Papa();
-				this._data = papa.parse(raw, options);
+				this._data = papa.parse(raw, options).data;
 			}),
 		).toPromise();
 	}

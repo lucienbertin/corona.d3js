@@ -7,10 +7,11 @@ import { AppService } from './app.service';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+	france;
 	constructor(
 		private _service: AppService,
 	) {}
 	ngOnInit() {
-		// this.logTimeScale();
+		this.france = this._service.france();
 	}
 }

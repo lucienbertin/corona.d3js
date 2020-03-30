@@ -5,11 +5,22 @@ import { DATA } from './app.token';
 export class AppService {
 	constructor(
 		@Inject(DATA) private _data,
-	) {
-		debugger;
+	) {}
+
+	private extract(country: string, state = '') {
+		const raw = this._data.find(d => d['Country/Region'] === country && d['Province/State'] === state)
+		const entries: any[] = Object.keys(raw).slice(4).map(
+			d => ({ date: new Date(d), cases: raw[d], })
+		);
+		const i100th = entries.findIndex(e => e.cases >= 100);
+		entries.forEach((e, i) => e.daysSice100th = i - i100th);
+		return {
+			name: country,
+			days: entries
+		}
 	}
 
-	franceTimeline() {
-		return;
+	france() {
+		return this.extract('France');
 	}
 }
