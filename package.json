@@ -16,6 +16,7 @@
     "@angular/core": "~9.1.0",
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
+    "@lucca-front/scss": "^4.0.5",
     "@types/d3": "^5.7.2",
     "d3": "^5.15.0",
     "ngx-papaparse": "^4.0.4",

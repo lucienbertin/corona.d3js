@@ -30,7 +30,13 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./src/theming",
+                "node_modules/@lucca-front/scss/src/overrides",
+              ]
+            }
           },
           "configurations": {
             "production": {
