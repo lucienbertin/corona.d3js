@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 
 const margin = { top: 30, right: 30, bottom: 70, left: 70 },
 	width = 1184 - margin.left - margin.right,
-	height = 400 - margin.top - margin.bottom,
+	height = 600 - margin.top - margin.bottom,
 	halfWidth = (1184 - margin.left * 2 - margin.right * 2) / 2;
 
 @Injectable()
@@ -52,7 +52,27 @@ export class ChartFactory {
 		svg.append('g')
 			.call(d3.axisLeft(y).ticks(4));
 
-		// add lines
+		// add dotted lines for reference
+		svg.append('line')
+		.attr('x1', n(0))
+			.attr('x2', n(27))
+			.attr('y1', y(1e2))
+			.attr('y2', y(1e6))
+			.attr('class', 'reference-line')
+		svg.append('line')
+			.attr('x1', n(0))
+			.attr('x2', n(29))
+			.attr('y1', y(1e2))
+			.attr('y2', y(1e5))
+			.attr('class', 'reference-line')
+		svg.append('line')
+			.attr('x1', n(0))
+				.attr('x2', n(27))
+				.attr('y1', y(1e2))
+				.attr('y2', y(1e4))
+				.attr('class', 'reference-line')
+
+		// add country lines
 		countries.forEach(
 			c => {
 				// 
@@ -63,7 +83,7 @@ export class ChartFactory {
 						.x(d => t(d.date))
 						.y(d => y(d.cases))
 					);
-				const ratio = +c.days.find(d => d.daysSince100th === 0).cases / 100
+				const ratio = c.days.find(d => d.daysSince100th === 0).cases / 100
 				svg.append('path')
 					.attr('class', `country-line ${c.name}`)
 					.datum(c.days.filter(d => d.daysSince100th >= 0))
@@ -78,9 +98,62 @@ export class ChartFactory {
 					.attr('cx', n(lastDay.daysSince100th))
 					.attr('cy', y(lastDay.cases / ratio))
 					.attr('r', 1)
-
 			}
 		)
 	}
 
+	forgeNewPerConfirmed(
+		eltRef: ElementRef,
+		...countries
+	) {
+		const svg = d3.select(eltRef.nativeElement)
+			.append('svg')
+			.attr('width', width + margin.left + margin.right)
+			.attr('height', height + margin.top + margin.bottom)
+			.append('g')
+			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+		// x-axis
+		const x = d3.scaleLog()
+			.range([0, width])
+			.domain([1e2, 1e6])
+		svg.append('g')
+			.attr('transform', 'translate(0,' + height + ')')
+			.call(d3.axisBottom(x).ticks(4));
+
+		// y-axis
+		const y = d3.scaleLog()
+			.range([height, 0])
+			.domain([1e1, 1e5])
+		svg.append('g')
+			.call(d3.axisLeft(y).ticks(4));
+
+		svg.append('line')
+		.attr('x1', x(1e2))
+			.attr('x2', x(1e5))
+			.attr('y1', y(1e2))
+			.attr('y2', y(1e5))
+			.attr('class', 'reference-line')
+		// add country lines
+		countries.forEach(
+			c => {
+				// 
+				svg.append('path')
+					.attr('class', `country-line ${c.name}`)
+					.datum(c.days.filter(d => d.daysSince100th >= 0))
+					.attr('d', d3.line<any>()
+						.x(d => x(d.cases))
+						.y(d => y(d.weeklyIncrease))
+					);
+
+				const lastDay = c.days[c.days.length-1];
+				svg
+					.append('circle')
+					.attr('class', `country-dot ${c.name}`)
+					.attr('cx', x(lastDay.cases))
+					.attr('cy', y(lastDay.weeklyIncrease))
+					.attr('r', 1)
+			}
+		);
+	}
 }

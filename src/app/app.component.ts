@@ -9,6 +9,7 @@ import { ChartFactory } from './chart.factory';
 })
 export class AppComponent implements OnInit {
 	@ViewChild('timeline', { static: true, read: ElementRef }) private _timelineEltRef: ElementRef;
+	@ViewChild('newPerConfirmed', { static: true, read: ElementRef }) private _newPerConfirmedEltRef: ElementRef;
 
 	constructor(
 		private _service: AppService,
@@ -16,16 +17,32 @@ export class AppComponent implements OnInit {
 	) {}
 	ngOnInit() {
 		// const dates = this._service.dates();
-		const france = this._service.france();
-		const italy = this._service.italy();
-		const usa = this._service.usa();
+		const france = this._service.extract('France');
+		const italy = this._service.extract('Italy');
+		const usa = this._service.extract('US');
 		const portugal = this._service.extract('Portugal');
+		// const hubei = this._service.extract('China', 'Hubei');
+		const korea = this._service.extract('Korea, South');
+		const singapore = this._service.extract('Singapore');
 		this._factory.forgeTimeline(
 			this._timelineEltRef,
 			france,
 			italy,
 			usa,
 			portugal,
+			korea,
+			singapore,
 		);
+
+		this._factory.forgeNewPerConfirmed(
+			this._newPerConfirmedEltRef,
+			france,
+			italy,
+			usa,
+			portugal,
+			korea,
+			singapore,
+			// hubei,
+		)
 	}
 }

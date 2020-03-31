@@ -7,14 +7,21 @@ $noCssVar: false;
 // ====
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic,400italic,600italic");
 
-
+.reference-line {
+	fill: none;
+	stroke-width: 1;
+	stroke-dasharray: 2;
+	stroke: #ccc
+}
 .country-line {
 	fill: none;
 	stroke-width: 1;
+	stroke: #999;
 }
 .country-dot {
 	fill: none;
 	stroke-width: 2;
+	stroke: #999;
 }
 .France {
 	color: #66CCAA;
