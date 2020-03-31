@@ -13,7 +13,7 @@ export class AppService {
 			d => ({ date: new Date(d), cases: raw[d], })
 		);
 		const i100th = entries.findIndex(e => e.cases >= 100);
-		entries.forEach((e, i) => e.daysSice100th = i - i100th);
+		entries.forEach((e, i) => e.daysSince100th = i - i100th);
 		return {
 			name: country,
 			days: entries,

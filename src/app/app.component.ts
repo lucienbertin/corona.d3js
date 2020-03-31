@@ -9,17 +9,21 @@ import { ChartFactory } from './chart.factory';
 })
 export class AppComponent implements OnInit {
 	@ViewChild('timeline', { static: true, read: ElementRef }) private _timelineEltRef: ElementRef;
-	private _dates;
-	private _france;
+
 	constructor(
 		private _service: AppService,
 		private _factory: ChartFactory,
 	) {}
 	ngOnInit() {
-		const dates = this._service.dates();
+		// const dates = this._service.dates();
 		const france = this._service.france();
 		const italy = this._service.italy();
 		const usa = this._service.usa();
-		this._factory.forgeTimeline(this._timelineEltRef, dates, france, italy, usa);
+		this._factory.forgeTimeline(
+			this._timelineEltRef,
+			france,
+			italy,
+			usa,
+		);
 	}
 }

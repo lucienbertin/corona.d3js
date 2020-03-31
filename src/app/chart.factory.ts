@@ -3,14 +3,14 @@ import * as d3 from 'd3';
 
 const margin = { top: 30, right: 30, bottom: 70, left: 70 },
 	width = 1184 - margin.left - margin.right,
-	height = 400 - margin.top - margin.bottom;
+	height = 400 - margin.top - margin.bottom,
+	halfWidth = (1184 - margin.left * 2 - margin.right * 2) / 2;
 
 @Injectable()
 export class ChartFactory {
 	constructor() {}
 	forgeTimeline(
 		eltRef: ElementRef,
-		dates: Date[],
 		...countries
 	) {
 		const svg = d3.select(eltRef.nativeElement)
@@ -21,15 +21,29 @@ export class ChartFactory {
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 		// x axis
-		const start = dates[0];
-		const end = dates[dates.length-1];
+		const firstDays = countries.map(c => c.days.find(d => d.daysSince100th === 0).date).sort((a, b) => a - b)
+		const tStart = firstDays[0];
+		const tEnd = countries[0].days[countries[0].days.length - 1].date;
+		const nStart = 0;
+		const daysSince100th = countries
+			.map(c => c.days.map(d => d.daysSince100th))
+			.reduce((memo, indexes) => [... memo, ...indexes], [])
+			.sort((a, b) => b - a)
+		const nEnd = daysSince100th[0];
+
 		const t = d3.scaleTime()
-			.range([0, width])
-			.domain([start, end]);
+			.range([0, halfWidth])
+			.domain([tStart, tEnd]);
+		const n = d3.scaleLinear()
+			.range([halfWidth + margin.left + margin.right, width])
+			.domain([nStart, nEnd]);
 
 		svg.append('g')
 			.attr('transform', 'translate(0,' + height + ')')
 			.call(d3.axisBottom(t));
+		svg.append('g')
+			.attr('transform', 'translate(0,' + height + ')')
+			.call(d3.axisBottom(n));
 
 		// y-axis
 		const y = d3.scaleLog()
@@ -43,12 +57,21 @@ export class ChartFactory {
 			c => {
 				svg.append('path')
 					.attr('class', `country-line ${c.name}`)
-					.datum(c.days.filter(d => d.daysSice100th >= 0))
+					.datum(c.days.filter(d => d.daysSince100th >= 0))
 					.attr('d', d3.line<any>()
 						.x(d => t(d.date))
-						.y(d => y(d.cases) || 1)
+						.y(d => y(d.cases))
+					);
+				const ratio = +c.days.find(d => d.daysSince100th === 0).cases / 100
+				svg.append('path')
+					.attr('class', `country-line ${c.name}`)
+					.datum(c.days.filter(d => d.daysSince100th >= 0))
+					.attr('d', d3.line<any>()
+						.x(d => n(d.daysSince100th))
+						.y(d => y(d.cases / ratio))
 					);
 			}
 		)
 	}
+
 }
