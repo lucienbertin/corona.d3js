@@ -12,6 +12,10 @@ $noCssVar: false;
 	fill: none;
 	stroke-width: 1;
 }
+.country-dot {
+	fill: none;
+	stroke-width: 2;
+}
 .France {
 	color: #66CCAA;
 	stroke: #66CCAA;
@@ -23,6 +27,10 @@ $noCssVar: false;
 .US {
 	color: #0f98d0;
 	stroke: #0f98d0;
+}
+.Portugal {
+	color: #5FC871;
+	stroke: #5FC871;
 }
 
 :root {

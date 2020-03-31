@@ -7,7 +7,7 @@ export class AppService {
 		@Inject(DATA) private _data,
 	) {}
 
-	private extract(country: string, state = '') {
+	extract(country: string, state = '') {
 		const raw = this._data.find(d => d['Country/Region'] === country && d['Province/State'] === state)
 		const entries: any[] = Object.keys(raw).slice(4).map(
 			d => ({ date: new Date(d), cases: raw[d], })
@@ -20,10 +20,7 @@ export class AppService {
 		}
 	}
 
-	dates() {
-		const raw = this._data[0];
-		return  Object.keys(raw).slice(4).map(d => new Date(d));
-	}
+
 	france() {
 		return this.extract('France');
 	}

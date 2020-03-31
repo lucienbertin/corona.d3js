@@ -55,6 +55,7 @@ export class ChartFactory {
 		// add lines
 		countries.forEach(
 			c => {
+				// 
 				svg.append('path')
 					.attr('class', `country-line ${c.name}`)
 					.datum(c.days.filter(d => d.daysSince100th >= 0))
@@ -70,6 +71,14 @@ export class ChartFactory {
 						.x(d => n(d.daysSince100th))
 						.y(d => y(d.cases / ratio))
 					);
+				const lastDay = c.days[c.days.length-1];
+				svg
+					.append('circle')
+					.attr('class', `country-dot ${c.name}`)
+					.attr('cx', n(lastDay.daysSince100th))
+					.attr('cy', y(lastDay.cases / ratio))
+					.attr('r', 1)
+
 			}
 		)
 	}

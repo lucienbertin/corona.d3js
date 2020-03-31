@@ -19,11 +19,13 @@ export class AppComponent implements OnInit {
 		const france = this._service.france();
 		const italy = this._service.italy();
 		const usa = this._service.usa();
+		const portugal = this._service.extract('Portugal');
 		this._factory.forgeTimeline(
 			this._timelineEltRef,
 			france,
 			italy,
 			usa,
+			portugal,
 		);
 	}
 }
