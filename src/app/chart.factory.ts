@@ -46,10 +46,14 @@ export class ChartFactory {
 			.call(d3.axisBottom(n));
 
 		// y-axis
-		const y = d3.scaleLog()
+		const y = d3
+			.scaleLog().domain([1e2, 1e6])
+			// .scaleLinear().domain([0, 2e5])
 			.range([height, 0])
-			.domain([1e2, 1e6])
 		svg.append('g')
+			.call(d3.axisLeft(y).ticks(4));
+		svg.append('g')
+			.attr('transform', `translate(${halfWidth + margin.left + margin.right }, 0)`)
 			.call(d3.axisLeft(y).ticks(4));
 
 		// add dotted lines for reference
@@ -129,7 +133,7 @@ export class ChartFactory {
 			.call(d3.axisLeft(y).ticks(4));
 
 		svg.append('line')
-		.attr('x1', x(1e2))
+			.attr('x1', x(1e2))
 			.attr('x2', x(1e5))
 			.attr('y1', y(1e2))
 			.attr('y2', y(1e5))
