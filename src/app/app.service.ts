@@ -12,7 +12,7 @@ export class AppService {
 		const entries: any[] = Object.keys(raw).slice(4).map(
 			d => ({ date: new Date(d), cases: +raw[d], })
 		);
-		const i100th = entries.findIndex(e => e.cases >= 100);
+		const i100th = entries.findIndex(e => e.cases >= 1000);
 		entries.forEach((e, i) => e.daysSince100th = i - i100th);
 		entries.forEach((e, i) => e.weeklyIncrease = e.cases - (entries[i-7] || { cases: 0 }).cases);
 		return {

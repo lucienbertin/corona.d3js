@@ -47,34 +47,34 @@ export class ChartFactory {
 
 		// y-axis
 		const y = d3
-			.scaleLog().domain([1e2, 1e6])
+			.scaleLog().domain([1e3, 1e6])
 			// .scaleLinear().domain([0, 2e5])
 			.range([height, 0])
 		svg.append('g')
-			.call(d3.axisLeft(y).ticks(4));
+			.call(d3.axisLeft(y).ticks(6));
 		svg.append('g')
 			.attr('transform', `translate(${halfWidth + margin.left + margin.right }, 0)`)
-			.call(d3.axisLeft(y).ticks(4));
+			.call(d3.axisLeft(y).ticks(8));
 
 		// add dotted lines for reference
-		svg.append('line')
-		.attr('x1', n(0))
-			.attr('x2', n(27))
-			.attr('y1', y(1e2))
-			.attr('y2', y(1e6))
-			.attr('class', 'reference-line')
-		svg.append('line')
-			.attr('x1', n(0))
-			.attr('x2', n(29))
-			.attr('y1', y(1e2))
-			.attr('y2', y(1e5))
-			.attr('class', 'reference-line')
-		svg.append('line')
-			.attr('x1', n(0))
-				.attr('x2', n(27))
-				.attr('y1', y(1e2))
-				.attr('y2', y(1e4))
-				.attr('class', 'reference-line')
+		// svg.append('line')
+		// .attr('x1', n(0))
+		// 	.attr('x2', n(27))
+		// 	.attr('y1', y(1e2))
+		// 	.attr('y2', y(1e6))
+		// 	.attr('class', 'reference-line')
+		// svg.append('line')
+		// 	.attr('x1', n(0))
+		// 	.attr('x2', n(29))
+		// 	.attr('y1', y(1e2))
+		// 	.attr('y2', y(1e5))
+		// 	.attr('class', 'reference-line')
+		// svg.append('line')
+		// 	.attr('x1', n(0))
+		// 		.attr('x2', n(27))
+		// 		.attr('y1', y(1e3))
+		// 		.attr('y2', y(1e5))
+		// 		.attr('class', 'reference-line')
 
 		// add country lines
 		countries.forEach(
@@ -87,7 +87,7 @@ export class ChartFactory {
 						.x(d => t(d.date))
 						.y(d => y(d.cases))
 					);
-				const ratio = c.days.find(d => d.daysSince100th === 0).cases / 100
+				const ratio = c.days.find(d => d.daysSince100th === 0).cases / 1000
 				svg.append('path')
 					.attr('class', `country-line ${c.name}`)
 					.datum(c.days.filter(d => d.daysSince100th >= 0))
@@ -101,7 +101,13 @@ export class ChartFactory {
 					.attr('class', `country-dot ${c.name}`)
 					.attr('cx', n(lastDay.daysSince100th))
 					.attr('cy', y(lastDay.cases / ratio))
-					.attr('r', 1)
+					.attr('r', 1);
+				svg
+					.append('circle')
+					.attr('class', `country-dot ${c.name}`)
+					.attr('cx', t(lastDay.date))
+					.attr('cy', y(lastDay.cases))
+					.attr('r', 1);
 			}
 		)
 	}
@@ -120,23 +126,23 @@ export class ChartFactory {
 		// x-axis
 		const x = d3.scaleLog()
 			.range([0, width])
-			.domain([1e2, 1e6])
+			.domain([1e3, 1e6])
 		svg.append('g')
 			.attr('transform', 'translate(0,' + height + ')')
-			.call(d3.axisBottom(x).ticks(4));
+			.call(d3.axisBottom(x).ticks(8));
 
 		// y-axis
 		const y = d3.scaleLog()
 			.range([height, 0])
-			.domain([1e1, 1e5])
+			.domain([5e2, 2e5])
 		svg.append('g')
-			.call(d3.axisLeft(y).ticks(4));
+			.call(d3.axisLeft(y).ticks(8));
 
 		svg.append('line')
-			.attr('x1', x(1e2))
-			.attr('x2', x(1e5))
-			.attr('y1', y(1e2))
-			.attr('y2', y(1e5))
+			.attr('x1', x(1e3))
+			.attr('x2', x(2e5))
+			.attr('y1', y(1e3))
+			.attr('y2', y(2e5))
 			.attr('class', 'reference-line')
 		// add country lines
 		countries.forEach(

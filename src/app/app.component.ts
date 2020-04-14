@@ -24,14 +24,18 @@ export class AppComponent implements OnInit {
 		// const hubei = this._service.extract('China', 'Hubei');
 		const korea = this._service.extract('Korea, South');
 		const singapore = this._service.extract('Singapore');
+		const germany = this._service.extract('Germany');
+		const spain = this._service.extract('Spain');
 		this._factory.forgeTimeline(
 			this._timelineEltRef,
 			france,
 			italy,
 			usa,
 			portugal,
-			korea,
-			singapore,
+			// korea,
+			// singapore,
+			germany,
+			spain,
 		);
 
 		this._factory.forgeNewPerConfirmed(
@@ -40,8 +44,10 @@ export class AppComponent implements OnInit {
 			italy,
 			usa,
 			portugal,
-			korea,
-			singapore,
+			// korea,
+			// singapore,
+			germany,
+			spain,
 			// hubei,
 		)
 	}
